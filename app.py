@@ -48,13 +48,25 @@ if st.button("توليد السكريبت ✨"):
     if topic and api_key != "ضع_مفتاحك_هنا":
         with st.spinner('جاري الكتابة...'):
             try:
-                chat_completion = client.chat.completions.create(
+                               chat_completion = client.chat.completions.create(
                     messages=[
-                        {"role": "system", "content": "أنت كاتب محتوى يوتيوب محترف. اكتب دائماً باللغة العربية. نسق النص بالعناوين."},
-                        {"role": "user", "content": f"اكتب سكريبت عن {topic} بأسلوب {style}"}
+                        {
+                            "role": "system", 
+                            "content": "أنت كاتب سكريبت محترف. اكتب باللغة العربية الفصحى فقط. ممنوع تماماً استخدام أي حروف لاتينية أو رموز غريبة داخل الكلمات العربية. اجعل النص متناسقاً ونظيفاً."
+                        },
+                        {
+                            "role": "user", 
+                            "content": f"اكتب سكريبت يوتيوب احترافي ومنظم عن: {topic} بأسلوب {style}"
+                        }
                     ],
                     model="llama-3.3-70b-versatile",
+                    temperature=0.6, # تقليل الدرجة لجعل النص أكثر دقة وأقل خطأً
+                    max_tokens=2048,
+                    top_p=1,
+                    stop=None,
+                    stream=False,
                 )
+
                 
                 # التصحيح الأهم: إضافة [0] هنا
                 script_result = chat_completion.choices[0].message.content
