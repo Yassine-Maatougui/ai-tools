@@ -23,7 +23,8 @@ st.title("🚀 مساعد اليوتيوبر الذكي")
 st.write("اصنع محتوى احترافي في ثوانٍ")
 
 # 2. ضع مفتاحك هنا (تأكد من مسح النص ووضع مفتاح gsk_ الحقيقي)
-api_key = "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" 
+# بدلاً من وضع المفتاح يدوياً، نطلبه من الخزنة (Secrets)
+api_key = st.secrets["GROQ_API_KEY"]
 
 try:
     client = Groq(api_key=api_key)
